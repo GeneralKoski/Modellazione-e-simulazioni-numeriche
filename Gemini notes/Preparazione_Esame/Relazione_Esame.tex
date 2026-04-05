@@ -3,10 +3,11 @@
 \usepackage[italian]{babel}
 \usepackage{amsmath}
 \usepackage{graphicx}
-\usepackage{hyperref}
 \usepackage{geometry}
 \geometry{a4paper, margin=2.5cm}
 \usepackage{float}
+\usepackage[hypcap=true]{caption} % Forza i link in alto sopra l'immagine
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref} % Deve sempre essere l'ultimo!
 
 \title{Relazione Finale - Modellazione e Simulazioni Numeriche \\ \large Progetto: Transizione di Fase Termodinamica e Algoritmica di Percolazione}
 \author{Martin Trajkovski}
@@ -22,7 +23,7 @@ Questa relazione documenta l'analisi formale del modello base di generazione e f
 \section{Ottimizzazione Architetturale: Union-Find e Hoshen-Kopelman}
 Il tracciamento dei cluster standard tramite l'immersione ricorsiva o a pila (l'approccio standard \texttt{CercaCluster.m}) presenta un limite strutturale drammatico: valicando la soglia d'aggregazione $p_c \approx 0.60$, il reticolo decanta rapidamente verso un ammasso reticolare unificato. La memoria strutturata subisce un over-saturation costringendo l'algoritmo visivo ad interrogare a ritroso la matrice un quantitativo esponenziale ed irrazionale di volte.
 
-Per superare rigorosamente tale collo di bottiglia, è stata implementata la configurazione \textit{Hoshen-Kopelman (HK)}. 
+Per superare rigorosamente tale collo di bottiglia, è stata implementata la configurazione \textit{Hoshen-Kopelman (HK)}.
 Il codice impiega operativamente i Disjoint-Set (\textit{Union-Find}): il reticolo in input viene esplorato tramite un un'unica scansione cardinale (\textit{Raster Scan}, unicamente asse verticale decrescente ed orizzontale crescente). La predizione assume inferenza sollevando le congiunture sui vicini pre-calcolati (Nord, ovest). L'intuizione logistica prevede non la riscrittura del reticolo fisico ma l'accorpamento virtuale delle etichette (Label) dinamicamente confliggenti dentro uno smistatore virtuale: The \textit{Parent List}. Questo salto prestazionale recide le interrogazioni spaziali ritardate inglobando la valutazione unicamente alla taglia natia dei gridpoint analizzati ($L^2$), determinando una risolvente $\mathcal{O}(N)$.
 
 \begin{figure}[H]
@@ -32,7 +33,7 @@ Il codice impiega operativamente i Disjoint-Set (\textit{Union-Find}): il retico
     \label{fig:efficienza}
 \end{figure}
 
-L'evidenza empirica di profilazione in Figura \ref{fig:efficienza} palesa il radicale divario algoritmico. Mentre la variante a pila soffre in scalabilità all'allargarsi dei lati dell'arena ($L$) o all'ostruzionismo dettato dall'intensificarsi del riempimento cromatico ($p_{col}$), l'algoritmo Hoshen-Kopelman assorbe invariato l'aumento della massa critica pre-soglia.
+L'evidenza empirica di profilazione in \hyperref[fig:efficienza]{Figura \ref*{fig:efficienza}} palesa il radicale divario algoritmico. Mentre la variante a pila soffre in scalabilità all'allargarsi dei lati dell'arena ($L$) o all'ostruzionismo dettato dall'intensificarsi del riempimento cromatico ($p_{col}$), l'algoritmo Hoshen-Kopelman assorbe invariato l'aumento della massa critica pre-soglia.
 
 \section{Distribuzioni di Connettività, $P_1$ e RACS}
 Forte della stabilità computazionale acquisita in ordine temporale per ogni simulazione asparsa, l'analisi vettoriale è stata displicata in altissima densità ($N=200$ invocazioni analitiche) esaminando gli assetti nell'intorno nevralgico della criticità topologica. Ogni serie estrapolata ingloba l'intervallo d'errore del campionamento \textit{Standard Error M.C.}, limitando l'errore apparente a una pura deviazione incerta standard normalizzata.
@@ -44,7 +45,7 @@ Forte della stabilità computazionale acquisita in ordine temporale per ogni sim
     \label{fig:termodinamica}
 \end{figure}
 
-L'indagine espone tangibilmente i teoremi asintotici di frontiera (Rif. Figura \ref{fig:termodinamica}):
+L'indagine espone tangibilmente i teoremi asintotici di frontiera (Rif. \hyperref[fig:termodinamica]{Figura \ref*{fig:termodinamica}}):
 \begin{itemize}
     \item \textbf{Morfologia a S della Sigmoide (Pannello 1):} Contrariamente al subitaneo e categorico salto del \textit{Gradino di Heaviside} esigibile teoreticamente per reticoli infiniti, il grafico convalida scientificamente l'esistenza empirica di una morfologia smussata "ad S" che regge lo specchio dei test finitamente delineati al calcolatore. Il rateo di penetrabilità delle sponde del reticolo implode e subisce uno sblocco critico superando prepotentemente il margine in bilico posto a $p_{col} \approx 0.59$.
     \item \textbf{Comportamento Organico del Parametro d'Ordine ($P_1$) (Pannello 2):} Palesa l'evoluzione endogena interna all'asseganto dominante: oltrepassata la transizione, cessa l'eterogeneità statistica e la varianza geometrica. Il telaio viene fagocitato interamente dal \textit{Spanning Cluster} che cresce non più in maniera aggregativa sparsa ma ramificandosi quasi a formare l'architettura assiale intera dell'ambiente matematico.
