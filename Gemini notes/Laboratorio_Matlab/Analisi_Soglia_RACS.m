@@ -12,7 +12,7 @@ clear; clc; close all;
 %% == PANNELLO DI COMANDO ==
 % CAMBIARE QUESTI DUE PARAMETRI A PIACERE PER L'ESAME
 L = 100;              % Risoluzione griglia fisica (Default: 100x100)
-N_proved = 20;        % Ripetizioni di calcolo M-Carlo! (Per ora: veloce=20. Metti 200 prima di esportare le foto per la tesi)
+N_proved = 1000;        % Ripetizioni di calcolo M-Carlo! (Per ora: veloce=20. Metti 200 prima di esportare le foto per la tesi)
 
 % Concentriamo gli esperimenti sulla soglia (fra ~0.55 e ~0.65)
 p_color = [0.1:0.1:0.4, 0.45:0.02:0.7, 0.75:0.05:0.9];

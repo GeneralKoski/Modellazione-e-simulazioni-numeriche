@@ -36,11 +36,11 @@ Il codice impiega operativamente i Disjoint-Set (\textit{Union-Find}): il retico
 L'evidenza empirica di profilazione in \hyperref[fig:efficienza]{Figura \ref*{fig:efficienza}} palesa il radicale divario algoritmico. Mentre la variante a pila soffre in scalabilità all'allargarsi dei lati dell'arena ($L$) o all'ostruzionismo dettato dall'intensificarsi del riempimento cromatico ($p_{col}$), l'algoritmo Hoshen-Kopelman assorbe invariato l'aumento della massa critica pre-soglia.
 
 \section{Distribuzioni di Connettività, $P_1$ e RACS}
-Forte della stabilità computazionale acquisita in ordine temporale per ogni simulazione asparsa, l'analisi vettoriale è stata displicata in altissima densità ($N=200$ invocazioni analitiche) esaminando gli assetti nell'intorno nevralgico della criticità topologica. Ogni serie estrapolata ingloba l'intervallo d'errore del campionamento \textit{Standard Error M.C.}, limitando l'errore apparente a una pura deviazione incerta standard normalizzata.
+Forte della stabilità computazionale acquisita in ordine temporale per ogni simulazione asparsa, l'analisi vettoriale è stata displicata in altissima densità ($N=1000$ invocazioni analitiche) esaminando gli assetti nell'intorno nevralgico della criticità topologica. Ogni serie estrapolata ingloba l'intervallo d'errore del campionamento \textit{Standard Error M.C.}, limitando l'errore apparente a una pura deviazione incerta standard normalizzata.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=\textwidth]{../Laboratorio_Matlab/analisi_soglia_racs_200.png}
+    \includegraphics[width=\textwidth]{../Laboratorio_Matlab/analisi_soglia_racs_1000.png}
     \caption{Spettro Termodinamico e Soglie: (1) Probabilità di Percolazione Orizzontale/Verticale, (2) Frazione Massica Isolata $P_1$, (3) Media Taglia Cluster Ridotta (RACS).}
     \label{fig:termodinamica}
 \end{figure}
@@ -57,5 +57,5 @@ L'indagine espone tangibilmente i teoremi asintotici di frontiera (Rif. \hyperre
 Nei modelli in cui un fenomeno esplode in maniera macroscopica si valuta sempre la "Lunghezza di Correlazione Geometrica" ($\xi$). Nell'assunto di cui all'osservazione, l'addolcimento sperimentato attorno ai fianchi della Soglia è strettamente ricondubile "all'Errore Fisico della Memoria di Appoggio". Elementi insiti e raggruppamenti di pixel che in uno spazio di iterazione infinito non dovrebbero neppur lambirsi topologicamente, riescono puramente ed erroneamente (spuntando la percolazione casuale anticipata) a trovare gli angoli laterali costretti dei muri del computer stesso in test per via di $L=100$. Queste limitatezze spiegano con enorme eleganza le derive distorte del reticolo asperso.
 
 \subsection*{4.2 Indipendenza Aleatoria nel Monte Carlo}
-Mentre per i test su catena di \textit{Code Infinita (Birth-Death)} vige il vizio di ereditare tempisticamente le saturazioni limitanti, il set di test di Hoshen testé misurato scansa interamente il rumore e l'errore insidioso dell' \textit{Autocorrelazione Temporale}. Ogni esecuzione randomica che compone le medie a base 200 per parametro di Densità, impone una tabula rasa in \texttt{Matlab} in totale distacco da memorie di tracciato pregresso, eludendo i fattori di scarto dell'integrale dei tempi e fornendo purezza accademica alle varianze stampate a video tramite Limite Centrale Universale (CLT).
+Mentre per i test su catena di \textit{Code Infinita (Birth-Death)} vige il vizio di ereditare tempisticamente le saturazioni limitanti, il set di test di Hoshen testé misurato scansa interamente il rumore e l'errore insidioso dell' \textit{Autocorrelazione Temporale}. Ogni esecuzione randomica che compone le medie a base 1000 per parametro di Densità, impone una tabula rasa in \texttt{Matlab} in totale distacco da memorie di tracciato pregresso, eludendo i fattori di scarto dell'integrale dei tempi e fornendo purezza accademica alle varianze stampate a video tramite Limite Centrale Universale (CLT).
 \end{document}
