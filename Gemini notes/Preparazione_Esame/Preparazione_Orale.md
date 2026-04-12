@@ -1,68 +1,94 @@
-# Simulazione ed Assalto Finale: Le Domande All'Orale (Aggiornato e Vocalizzato)
+# Preparazione Esame Orale: Domande e Risposte
 
-Oltre alle logiche d'esplorazione viste prima, le seguenti sono le considerazioni più insidiose che faranno percepire un forte senso di padronanza del modello al professore. Tralasciando il codice, ti domanderà l'impatto sulla fisica di base! Le risposte sono ora scritte per essere **esposte a voce** (con i simboli matematici affiancati alla loro pronuncia tra parentesi!).
+Queste sono le domande più comuni all'orale. Le risposte sono brevi, dirette e scritte in modo semplice per essere spiegate facilmente a voce.
 
-## Domanda 1: "Spiegami la correttezza algoritmica dell'algoritmo Hoshen-Kopelman: perché non controlli MAI i nodi a destra e in basso? Come fai a dire che funziona?"
+---
 
-**Risposta Ideale:**
-«L'algoritmo Hoshen-Kopelman (*Oscen Copelman*) è strutturato integralmente per causalità (non guarda mai nel futuro geometrico). Dal momento che scansioniamo linearmente in Raster Scan (ovvero una lettura orizzontale oramai meccanica, riga dopo riga da sinistra a destra), le celle che abbiamo lasciato in alto o a sinistra inglobano di già le certezze definitive dei cluster vicini. Le unioni ramificate, che per ora appaiono 'rotte in basso' o a destra, non passano inosservate ma verranno incrociate di conseguenza nei futuri passaggi elementari del computer. Se e quando s'uniranno forzatamente da un incastro, basterà che subentri il comando genitore della Union-Find (le strutture concatenate Unione-Ricerca). Essa, come un'anagrafe slegata da tutto, dichiarerà l'avvenuta accorpazione cambiando solo il nome virtuale d'un unico padrone centrale astratto retroattivo senza obbligare il calcolatore a consumare la memoria tornando brutalmente in giro sul disegno.»
+## Domanda 1: "Perché l'algoritmo Hoshen-Kopelman non controlla mai i nodi a destra e in basso?"
 
-## Domanda 2: "RACS: Mi hai estrapolato il RACS nella relazione. Soffermati un attimo: perché hai tolto proprio matematicamente dal pallottoliere l'$s_{max}$ (il cluster gigante)? Cos'è quel 'vulcano' grafico?"
+**Risposta:**
+«L'algoritmo legge la griglia come un libro, da sinistra a destra e dall'alto verso il basso. Controlla solo le celle sopra e a sinistra perché sono quelle dove è già passato e di cui conosce il risultato. Non serve guardare "nel futuro" (a destra o in basso) perché quelle celle verranno analizzate nei passaggi successivi. Se due pezzi di un cluster si devono unire, la funzione Union-Find li collega cambiando semplicemente il loro "nome", senza dover tornare indietro a ricalcolare tutto.»
 
-**Risposta Ideale:**
-«L'espulsione o cancellazione visiva temporanea del cluster infinito o massimale $s_{max}$ (*esse max*) si esige appositamente, altrimenti la sua portata esplosiva adombrerebbe del tutto le sorti del RACS dominandolo nel numeratore! Proprio alla base infima prima del famoso $60\%$ (*sessanta percento*) termodinamico (soglia base o asintoto critico $P_c$ (*pi con ci*)), gli aggregati limitrofi enormi faticano assieme, si allungano ed intasano ovunque combattendo allo strenuo per attaccarsi l'uno all'altro e 'chiudere il ponte decisivo'. L'equazione asintota usata ha sopra di sé proprio quadratura per probabilità $s^2 \cdot n_s$ (*esse quadro per enne con esse*). Questa spinta d'enormità aspetta la miccia. Da qui erutta il Vulcano! È un boato di ritardi d'appiglio! Ed eccoci giunti superandola! Collassano tutti nella macchia egemone ed universale dell' $s_{max}$ (*esse max*) ritirandosi magicamente a $0$ (*zero*) assieme alle equazioni svuotate nel limbo formale del post-trasgressione!»
+---
 
-## Domanda 3: "Grafico Sigmoide su reticoli piccoli contro il Teorema Infinito (Funzione di Heaviside) e gli Effetti di Bordo"
+## Domanda 2: "RACS: Perché togliamo il cluster gigante ($s_{max}$) dal calcolo? Cos'è quel picco nel grafico?"
 
-**Risposta Ideale:**
-«A rigor di Logica analitica, al subentrare delle regole di Estensione del Limite Termodinamico — ovvero laddove i lati $L$ (*elle*) della griglia volgerebbero ad estensioni dimensionali infinite sciolte da confine — a noi non comparirebbe di tracciare le pieghe morbide fluttuanti di quella dolce curvatura geometrica apparsa ad 'S'; per niente! Lo sbocco veritiero è e sarà per sempre la brusca ed insuperabile Funzione di Heaviside (*Evisaid*). Quella discesa sfilacciata e palesata invece ai computer moderni per limite tangibile fisico attinge l'inglorioso 'Effetto scala e Finita taglia' (il Finite-size Scaling). Confini d'hardware d'una misera finestra. Essendo il margine geometrico un labirinto fittizio, gli ostacoli visivi ed incorrelati dei distacchi topologici cozzano ingannevolmente, e a stento e fortuna incrociano sponde del confine imposto rimescolando la linearità. Quindi si ammortizza spudoratamente la veridicità di stacco violenta ritagliando per confini ristretti l'andamento asperso!»
+**Risposta:**
+«Togliamo il cluster più grande ($s_{max}$ (_esse max_)) perché, vicino alla soglia di percolazione, diventa così enorme che coprirebbe tutti gli altri cluster piccoli, rendendo il calcolo del RACS inutile. Il "picco" che vediamo nel grafico (chiamato a volte vulcano) rappresenta il momento in cui i cluster diventano molto grandi e iniziano a toccarsi, proprio prima di unirsi tutti insieme nel cluster gigante finale.»
 
-## Domanda 4: "Hai usato Autocorrelazioni temporali nei tuoi campionamenti matriciali al computer?"
+---
 
-**Risposta Ideale:**
-«Nemmeno di striscio. Contrariamente all'assunto dogmatico vincolante di processione logica (come le indagini della ramificazione d'imprese Birth-Death o Processi aspetta code 'Del Postino') il cui onere e strazio analitico costringe la formula ad annoverare le fluttuazioni scartate del Tempo di Correlazione Integrato temporale $\tau_{int}$ (*tau integrato*) per pareggiare o sedare una stabilità ereditiera a staffetta; al contrario in questo ambito ho decretato una strage totale ed estrazione del tutto smembrata a Random per la simulazione globale. Ognuno dei mille incroci matriciali indipendenti ($N = 1000$) eseguiti in isolamento ha usufruito d'estrazione Monte Carlo isolata ed astratta dalle altre: e la statistica pura del Teorema del Limite Centrale avanza sicura stampando e siglando le stanghette error-bar (il range misuratorio asintotico $\frac{s}{\sqrt{N}}$ (*esse fratto radice di enne*)). Assoluto pulitissimo incrocio di confidenza logica termodinamica standard e nient'altro.»
+## Domanda 3: "Differenza tra reticoli piccoli e il Teorema Infinito (Heaviside). Cosa sono gli effetti di bordo?"
 
-## Domanda 5: "Cosa succede in pratica e al tuo grafico se estrapolo tutto questo e creo un cubo con le regole della percolazione? (Reticolo Tridimensionale 3D?)"
+**Risposta:**
+«In teoria, su una griglia infinita, la percolazione avviene all'improvviso come un interruttore (Funzione di Heaviside (_Evisaid_)). Nei nostri computer, però, usiamo griglie piccole e finite. Questo crea degli "effetti di bordo": la curva non è un gradino netto ma una "S" più morbida. Questo effetto si chiama Finite-size Scaling (_finait saiz scheiling_) e succede perché i confini della griglia influenzano il cammino dei cluster.»
 
-**Risposta Ideale:**
-«Il grafico, per così dire, deraglierebbe traslandosi asintoticamente sul retro, quasi scivolando via nella parete di sinistra della probabilità in esame (la riga orizzontale o delle asse ascisse di densità $p_{col}$ (*pi col*)). Avvezzi a sei possibili direzioni angolari vettoriali massime anziché spigoli piatti limitrofi in quattro e null'altro, le occasioni empiriche e topologiche dell'intercettamento spaziale fioccano smisuratamente d'incontro in incontro. Quella formidabile barriera o asintoto tranciante per limite posto in 2D sul filo vertiginoso del punto $0.59$ (*zero virgola cinquantanove*) retrocede violentemente e assicura con agghiacciante sveltezza una probabilità empiricamente limitrofa al banale giro termodinamico del $31\%$ (*trentuno percento*) della concentrazione cubica in atto. Trentuno contro Sessanta... è una disfatta di ascesa probabile e la natura lo rende spaventosamente intuitivo con quelle due pareti geometriche accessorie.»
+---
 
-## Domanda 6: "Teoria dei Gruppi e Universalità: Se invece del reticolo a quadrati che hai scelto tu avessi usato una geometria a triangoli (oppure a blocchi Esagonali, a Nido d'Ape), non cambiava tutto?"
+## Domanda 4: "Hai usato Autocorrelazioni temporali nei tuoi campionamenti?"
 
-**Risposta Ideale:**
-«La risposta asintotica di fondo muterebbe in sostanza unicamente sul limite percettivo soglia quantistico formale vero (il gradino numerabile fisico): per capirci nel mondo asimmetrico triangolare l'asse soglia retro-flette abbattendosi precisamente all'estrazione dello $0.5$ (*zero virgola cinque*) pari probabile. Ciononostante e a dispetto delle geometrie angolari varianti slegate dalla regolarità dei quattro pixel; tanto la piega esponenziale e le logiche delle curve a salasso delle frazioni critiche d'influenza analitica escludenti della massa massimale quanto la natura indomita del Vulcano, persisterebbe incontaminata giacché ogni figura planare 2D per i concetti a distorsione termodinamica rintocca ineludibilmente sdoppiandosi in quella che nei libri della Termodinamica è rinomata quale l'incrollabile 'Classe Universale Logica'! Nessuna maglia micro-esagonale smembrerà leggi fisse topologiche universali impiantate d'analisi ai limiti dei derivati come l'esponente $\gamma$ (*gamma*)! Pendenza invariata ed identica logaritmicamente all'assoluto.»
+**Risposta:**
+«No, non è stato necessario. Invece di seguire un processo che cambia nel tempo (dove ogni passaggio dipende dal precedente), ho creato ogni simulazione da zero in modo indipendente usando il metodo Monte Carlo. Avendo fatto 1000 simulazioni tutte diverse tra loro, la statistica è pulita e possiamo calcolare l'errore semplicemente dividendo per la radice del numero di prove ($\frac{s}{\sqrt{N}}$ (_esse fratto radice di enne_)).»
 
-## Domanda 7: "Questa che hai portato la chiamiamo Percolazione dei Siti o della ramificazione ai Legami in base standard di studio?"
+---
 
-**Risposta Ideale:**
-«Il test affrontato nei calcolatori si incentra per esecuzione strutturale sulla fenomenologia nota da vocabolari a Percolazione dei Siti nativi originanti (Ovvero Site Percolation). Ereditando l'algoritmo visivo simulativo cromatico d'accensione fissa estraibile dei nodelli originari incrociati e nient'altro. I teoremi dirimpetto, più affini ad esplorazioni capillari porosi sui massi solidi per fluidi ed oli in terra e test fisici chimici stringenti poggiano asseritamene il carico sull'opposta derivata da esame della Percolazione a Legami (Bond Percolation). Lì, ad intatta geometria base d'incrocio nodale fisso... ci dedichiamo a calcolare a testacroce aspersivo in random unicamente i perimetri connettivi tra i tubi (tappato fisicamente, o non tappato permeabile all'ascesa)! Un test d'esame stratosferico quello a Legami poiché proprio i testi dei fisici palesano matematicamente l'indiscussa formula secca ed appurata elementarmente della densità di rottura incrocio allo $0.50$ (*zero virgola cinquanta*) asse matematico base formale secco ed ineguagliabile in eleganza!»
+## Domanda 5: "Cosa succede se usiamo un cubo (3D) invece di una griglia piatta (2D)?"
 
-## Domanda 8: "Che spessore o area di confino possiede quest'ammasso asintotico dominante esattamente calzato alla soglia critica $P_c$ (*pi con ci*) geometrica d'analisi?"
+**Risposta:**
+«In 3D la percolazione avviene molto prima. In una griglia piatta (2D) la soglia è circa al $59\%$ (_cinquantanove percento_), mentre in un cubo (3D) scende al $31\%$ (_trentuno percento_). Questo succede perché in tre dimensioni ci sono molte più strade possibili (6 direzioni invece di 4) per collegare i nodi e creare un cammino continuo.»
 
-**Risposta Ideale:**
-«Conducendo l'indagine al microscopio teoricissimo a filo e bilico estremo dello sblocco probabilistico in baricentro soglia; il cluster enorme $s_{max}$ (*esse max*) formatosi ad assorbimento e spuntato oltre la coltre critica non aspetta d'essere esibito visualizzando minimamente come in massa compatta piatta ed interconnessa in tela geometrica quadrata ad area euclidea pura $L^2$ (*elle quadro*). Questo divampa dimensionalmente ed interamente mutando in genesi come vera geometria d'ingaggio e di sfilacciato aspro Frattale intero per via dell'Invarianza estetica sulle Scale. Qualora per test d'immagine rincariamo ad allargare e espandere le risoluzioni dell'ambito, vedremmo sempre crateri inesplorati o buchi isolati o micro spaccature costanti in via eterna di decodifica! Non c'è solidità euclidea massiccia! Il tasso percentuale da esploso spazierà crescendo d'assoluta logica con esponente logaritmico stravolto $D \approx 1.89$ (*di circa uguale a uno virgola ottantanove*). Qualcosa d'inequivocabile e spugnosa distorsione bidimensionale lineare ma sfavillante ai calcoli infiniti!»
+---
 
-## Domanda 9: "La Percolazione si applica ai Processi Stocastici e Cammino Casuale (Random Walk, tipo la Formica Ubriaca)?"
+## Domanda 6: "Se cambiassimo la forma della griglia (triangoli o esagoni), cambierebbe tutto?"
 
-**Risposta Ideale:**
-«La convergenza fisica interviene ed è calcolabilmente immensa giunte alle diramazioni sui bivi fra la percolazione teorica in sosta d'effetti o asintoti bloccanti per i correnti vettori di Random Walk (*rendom uòk*) o la cosiddetta metafora esame della 'Formica Errante incastrata nei dadi in moto'. Confinando con precisione un simulacro elettrone vagante impiantato obbligatoriamente su soli step e passi sui pixel 'accesi attivi termicamente'; per fasi iniziali di aggregazione (es. $20\%$ (*venti percento*)) resterà sottomesso chiuso all'ergastolo confinato ad atolli microscopici limitati in isole morte e chiuse... valicando i picchi alti di massa del fiero $s_{max}$ (*esse max*) correrà e filerà spedito e sicuro intersecando binari asintoticamente infiniti e sempre connessi ovunque; ma se posato nel millesimo preciso decimo ed indimostrabile incrocio infimo del punto limite $P_c$ (*pi con ci*)... sarà costretto ad uno strascico penoso imboccando deviazioni infinite note fisicamente come Dead Ends (o tracciati estenuanti limitrofi a vuoto chiusi morti terminali). Questa deviazione spaziale che la obbliga all'arrancamento smisurato dei tempi matematici porta a stime denominate dalla fisica dei fisici in "Diffusione Anomala".»
+**Risposta:**
+«Cambierebbe solo il numero preciso della soglia (il punto in cui inizia la percolazione). Per tutto il resto, le leggi fisiche e la forma delle curve rimarrebbero identiche. Questo concetto si chiama 'Universalità': non importa la forma della singola cella, se siamo in 2D il comportamento generale del sistema segue le stesse identiche regole matematiche.»
 
-## Domanda 10: "Riflettendoci su logiche analitiche formali, non avendo supercalcolatori per l'infinito asintotico $L \to \infty$ (*elle tende a infinito*), come estrarrebbero i calcoli esatti della soglia teorica?"
+---
 
-**Risposta Ideale:**
-«Essendosi negata ai vecchi ricercatori di fisica d'esame l'estensione all'impossibile l'indagine a grandezza computazione esponenziale matrice d'hardware infinita; l'asso vero divampa col celeberrimo postulato d'intervento matematico di Gruppi formalizzati o Teoremi chiamati 'Gruppi di Rinormalizzazione' (Renormalization Group). In soldoni stringenti è come inglobare logicamente i quadri minimi della matrice 'per tesserine Kadanoff piccole per blocchetti due per due'. Inseriamo un postulato di legge d'approvazione maggioranza estetica... se in massa è vincente lo chiameremo da solo in sintesi l'intero Macro Pixel isolato unificato! Quindi stiamo zoomando visivamente ed all'indietro (a compressione rimpicciolente o Coarse-Graining). Comprimendo iterativamente senza stacco per vie infinite il mosaico visivo matrice, la logica non farà impazzire alcun indice tranne se saremo proprio nell'esatto confine o barriera logaritmo termodinamico e vero d'esame. Giunti all'asintotica tranciante infatti la regola formulerà un Equilibrio Fiscale $p' = p$ (*pi primo uguale pi*), the 'Fixed Point' (*fixed point* o Punto Fisso). Non si scuoterà minimamente percentualmente! Tutto verrà dedotto limpidamente dalle equazioni limitrofe!»
+## Domanda 7: "Questa è Percolazione di Siti o di Legami? Qual è la differenza?"
 
-## Domanda 11: "Qual è la differenza esatta nel tuo grafico tra la curve della Probabilità di Percolazione e il parametro $P_1$ (*pi con uno*)?"
+**Risposta:**
+«Noi abbiamo studiato la Percolazione di Siti (Site Percolation), dove decidiamo se "accendere" o "spegnere" i singoli quadratini. Nella Percolazione di Legami (Bond Percolation), invece, i quadratini sono fissi e decidiamo se collegarli tra loro con dei ponti. La differenza principale è matematica: nella percolazione di legami in 2D, la soglia critica è esattamente allo $0.5$ (_zero virgola cinque_), un numero molto elegante e preciso.»
 
-**Risposta Ideale:**
-«Spesso vengono confuse perché si impennano entrambe assieme vicine allo zero virgola sessanta, ma matematicamente misurano fisiche opposte! La Probabilità di Percolazione (o Spanning Probability) che vedi schizzare a 'S' mi dice all'esterno solo un 'Sì o un No' binario: ovvero in quanti reticoli finiti su $1000$ (*mille*) io ho trovato ALMENO UN cluster infinito, a prescindere da quanto fosse grasso o magro! Invece $P_1$ (*pi con uno*), noto ai fisici statistici come Parametro d'Ordine o 'Forza della Rete', scava all'interno dello spazio del singolo reticolo dicendomi in quota percentuale 'Quanta cella colorata o massa originaria attiva è stata letteralmente fagocitata via dal cluster unico vincitore'. È un indicatore di grandezza interna, non un esito di vittoria o sconfitta termodinamica!»
+---
 
-## Domanda 12: "Dettaglio di codice MATLAB (Generazione Griglia): Hai usato due lenti e banali cicli *For* scansionando la griglia riga ed asse per decidere col *rand() * chi colorare a monte?"
+## Domanda 8: "Che forma ha il cluster gigante proprio sulla soglia critica $P_c$?"
 
-**Risposta Ideale:**
-«Assolutamente no, professore, sarebbe un enorme dispendio di tempi CPU in MATLAB! Il mio codice abbraccia fermamente la potenza vettorializzata. Ho istruito contemporaneamente l'estrazione generando la super-matrice in un colpo istantaneo secco solo e ponendo subito l'intero foglio sotto condizione logica booleana: in codice netto esatto `reticolo = rand(N) < p_col` (*reticolo uguale a rend di enne che sia rigorosamente minore a pi col*). Zero ritardi da loop e zero iterazioni fisse a passo! Questo ha annullato a monte qualsiasi latenza morta di setup, caricando interamente e meritevolmente i ritardi prestazionali al solo algoritmo puro di tracciamento o esplorazione geometrica.»
+**Risposta:**
+«Sulla soglia critica, il cluster gigante non è una macchia piena e solida. È un "Frattale": un oggetto sfilacciato e pieno di buchi a ogni scala di ingrandimento. La sua dimensione non è un numero intero (come 2 per un’area), ma è circa $1.89$ (_uno virgola ottantanove_). Significa che è più di una linea ma meno di una superficie piena.»
 
-## Domanda 13: "Condizione Logica di Spanning: Come fai a dire chirurgicamente al tuo computer, alla fine dell'ispezione ad albero, se un network ha effettivamente 'percolato' oltrepassando i due bordi geografici?"
+---
 
-**Risposta Ideale:**
-«Per la chiusura dell'orizzonte d'esplorazione vettoriale ho attinto nativamente a un artificio logico noto ai teoremi d'Intersezione fra gli Insiemi disgiunti! Dopo le sfuriate logiche della routine di Hoshen, il computer si reca ed estrae tutti gli indici di etichetta cromatica ('Label IDs' del gruppo parentale) palesati lungo la primissima riga originaria in alto, ovvero imponendo quota fissa $y=1$ (*ipsilon fissa al muro asse ad uno*). Di rovescio e parallelo campiona le etichette vive arenate e sbucate sino all'ultimissima riga morta in basso asse scesa $y=L$ (*ipsilon uguale ad elle lato totale massimale*). Un'espressione nativa `intersect()` (*intersect*) confronta le liste isolate: se anche solo un numero identificativo resiste in entrambe le coste isolate, l'evidenza decreta istantaneamente logicamente la rottura. Ossia: l'allacciante spina idrica od elettrica o massa continua è filata intersecando ambo i fianchi massimali del recinto!»
+## Domanda 9: "Come si collega la percolazione al cammino casuale (Random Walk)?"
+
+**Risposta:**
+«Se immaginiamo una formica che si muove a caso sulla griglia, la percolazione decide dove può andare. Sotto la soglia, la formica resta bloccata in piccole isole e non va lontano. Sopra la soglia, trova un cammino infinito e può attraversare tutto lo spazio. Proprio sulla soglia, invece, la formica finisce spesso in "vicoli ciechi" (Dead Ends) e ci mette tantissimo tempo a muoversi. Questo fenomeno si chiama "Diffusione Anomala".»
+
+---
+
+## Domanda 10: "Senza supercomputer, come si calcola la soglia esatta per una griglia infinita?"
+
+**Risposta:**
+«Si usa una tecnica chiamata 'Gruppo di Rinormalizzazione'. In pratica, si rimpicciolisce la griglia unendo i quadratini in blocchi più grandi (Macro-Pixel) e si guarda come cambia la probabilità. Se rimpicciolendo la griglia la probabilità non cambia (Punto Fisso), allora abbiamo trovato l'esatta soglia di percolazione teorica per una griglia infinita.»
+
+---
+
+## Domanda 11: "Qual è la differenza tra Probabilità di Percolazione e Parametro d'Ordine $P_1$?"
+
+**Risposta:**
+«La Probabilità di Percolazione ci dice solo SE esiste un cammino che attraversa la griglia (un "Sì" o "No"). Il Parametro d'Ordine $P_1$ (_pi con uno_), invece, ci dice QUANTO è grande quel cammino rispetto a tutta la griglia. Uno ci dice se abbiamo vinto, l'altro ci dice quanto è grande il premio (quanta massa è nel cluster gigante).»
+
+---
+
+## Domanda 12: "In MATLAB hai usato dei cicli 'For' per creare la griglia?"
+
+**Risposta:**
+«No, sarebbe stato troppo lento. Ho usato la "vettorializzazione": ho creato tutta la matrice di numeri casuali in un colpo solo e l'ho confrontata direttamente con la probabilità scelta. In codice si scrive `reticolo = rand(N) < p`. Questo rende il codice molto più veloce perché evita di controllare le celle una per una con un ciclo lento.»
+
+---
+
+## Domanda 13: "Come controlli se un cluster attraversa davvero la griglia da parte a parte?"
+
+**Risposta:**
+«Dopo aver trovato tutti i cluster, chiedo al computer di fare un confronto: prendo l'elenco dei nomi (etichette) dei cluster sulla prima riga e quello dell'ultima riga. Se c'è almeno un "nome" presente in entrambi gli elenchi, significa che quel cluster tocca sia l'inizio che la fine, quindi ha percolato.»

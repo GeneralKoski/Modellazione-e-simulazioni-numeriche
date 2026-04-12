@@ -1,38 +1,45 @@
-# Ricettario delle Formule
+# Ricettario delle Formule (Semplificato)
 
-Questo file raggruppa tutti i principali output matematici che ti servono (e che dovrai saper dimostrare o usare in codice) all'esame.
+Questo file contiene le formule principali che devi conoscere per l'esame, spiegate in modo semplice.
 
-## 1. Generazione di Variabili Casuali (Matlab)
+---
 
-Nei codici di simulazione (es. tempi esatti di arrivo o servizio), utilizziamo questa formula per forzare una densità uniforme nell'intervallo tra zero e uno (`rand()`) dentro la densità **Esponenziale** (inversa della funzione cumulativa):
+## 1. Trasformare un numero a caso in un tempo (MATLAB)
+
+Per simulare quando arrivano i clienti (tempi di arrivo) o quanto tempo ci mettono a essere serviti, usiamo questa formula. Trasforma un numero casuale tra 0 e 1 (`rand()`) in un tempo che segue la distribuzione **Esponenziale**:
+
 $$ t_a = -\frac{1}{\lambda} \ln(\text{rand}()) $$
-*(Dove $\lambda$ è il tasso d'intercorrenza/densità).\*
 
-## 2. Equazioni per il "Modello di Coda"
+*(Dove $\lambda$ (_lambda_) è la frequenza con cui arrivano i clienti).*
 
-- **Rapporto di stazionarietà/Traffico ($\rho$):**
-  $$ \rho = \lambda \cdot s \quad (\text{Densità di arrivo} \times \text{Tempo medio servizio}) $$
-  *Se $\rho \ge 1$ nella coda infinita, la distribuzione non converge (accumulo infinito).\*
+---
 
-- **Ricorsione della Distribuzione Stazionaria ($\Pi$):**
-  Nel caso di tempi costanti e Poissoniani, risolvendo per righe:
+## 2. Formule per le Code
+
+- **Rapporto di Traffico ($\rho$):**
+  $$ \rho = \lambda \cdot s $$
+  *(Dove $\lambda$ è quanto spesso arrivano e $s$ è quanto tempo ci mette il servizio).*
+  **Attenzione**: Se $\rho \ge 1$, arrivano clienti più velocemente di quanto riesci a servirli, quindi la coda cresce all'infinito.
+
+- **Probabilità di avere 1 cliente in coda ($\Pi_1$):**
   $$ \Pi_1 = \frac{\Pi_0(1 - K_0)}{K_0} $$
-  dove $K_0$ è la probabilità d'arrivo di 0 clienti durante un tempo esatto di servizio.
+  *(Dove $\Pi_0$ è la probabilità che la coda sia vuota e $K_0$ è la probabilità che non arrivi nessuno durante un servizio).*
 
-- **Varianza e Momenti Formali dell'Evoluzione della coda:**
-  Per valutare la varianza analitica si usa l'equazione di massa con le potenze.
-  L'equazione base $Q_{n+1} = Q_n - H(Q_n) + X_{n+1}$ viene impiegata. In stato stazionario:
-  $\mathbb{E}(Q_n^2) = \mathbb{E}(Q_{n+1}^2)$ (che permette di trovare la media)
-  $\mathbb{E}(Q_n^3) = \mathbb{E}(Q_{n+1}^3)$ (che permette di trovare la varianza).
+- **Trovare media e varianza della coda:**
+  In uno stato stabile (stazionario), usiamo queste uguaglianze per trovare i valori medi:
+  - $\mathbb{E}(Q_n^2) = \mathbb{E}(Q_{n+1}^2)$ → serve per trovare la **media**.
+  - $\mathbb{E}(Q_n^3) = \mathbb{E}(Q_{n+1}^3)$ → serve per trovare la **varianza**.
 
-## 3. Elementi della Percolazione
+---
 
-Dato un reticolo infinito o finito (di dimensione $L^2$) in cui $s_{max}$ è la taglia massima prodotta da un cluster. Siano inoltre $s$ le diverse taglie registrate e $n_s$ la loro frequenza d'occorrenza.
+## 3. Formule per la Percolazione
 
-- **Calcolo probabilità pesate (P1, P2, P3):**
-  $$ P*1 = \frac{s*{max}}{L^2} $$
+- **Grandezza del cluster gigante ($P_1$):**
+  Ci dice quanta parte della griglia è occupata dal cluster più grande:
+  $$ P_1 = \frac{s_{max}}{L^2} $$
+  *(Dove $s_{max}$ è il cluster più grande e $L^2$ è la grandezza totale della griglia).*
 
-- **RACS (Reduced Average Cluster Size - Media Ridotta):**
-  Taglia media dei cluster che non prenderà in considerazione il picco generato dal cluster massivo dominante a cavallo della soglia di fase.
-  $$ RACS = \frac{\sum*{s \neq s*{max}} s(s \cdot n*s)}{\sum*{s} (s \cdot n_s)} $$
-  L'esplosione di questa formula al denominatore mostra la transizione termodinamica della connettività.
+- **RACS (Taglia Media dei Cluster):**
+  È la media della grandezza di tutti i cluster, **senza** contare quello più grande ($s_{max}$).
+  $$ RACS = \frac{\sum_{s \neq s_{max}} s(s \cdot n_s)}{\sum_{s} (s \cdot n_s)} $$
+  Vicino alla soglia di percolazione, questa formula "esplode" (il valore diventa altissimo), indicando che i cluster si stanno unendo.
