@@ -6,15 +6,15 @@ Queste domande servono per prepararti alla discussione del progetto e alla teori
 
 ### Statistica e Simulazione
 
-1. **L'Autocorrelazione**: "Perché per le Code non usiamo l'errore standard normale ($\frac{std(X)}{\sqrt{N}}$)? In che modo l'autocorrelazione (fatto che un tempo dipende dal precedente) cambia il calcolo dell'errore?"
-2. **Convergenza**: "Al crescere del numero di prove ($N$), perché l'errore nei grafici diventa più piccolo? Qual è il principio matematico che lo garantisce?"
+1. **L'Autocorrelazione**: "Perché per le Code non usiamo l'errore standard normale ( std(X) / radice(N) )? In che modo l'autocorrelazione (fatto che un tempo dipende dal precedente) cambia il calcolo dell'errore?"
+2. **Convergenza**: "Al crescere del numero di prove (N), perché l'errore nei grafici diventa più piccolo? Qual è il principio matematico che lo garantisce?"
 
 ---
 
 ### Percolazione (Teoria e Grafica)
 
-3. **Griglia Infinita**: "Cosa succede alla forma della curva della probabilità ($P_{perc}$) se la griglia fosse infinita? Perché somiglierebbe a un 'gradino' (Funzione di Heaviside)?"
-4. **Il RACS**: "Che cos'è il RACS e perché è diverso dalla semplice media dei cluster? Cosa succede a questa formula proprio sulla soglia di percolazione ($P_c$)?"
+3. **Griglia Infinita**: "Cosa succede alla forma della curva della probabilità (P_perc) si la griglia fosse infinita? Perché somiglierebbe a un 'gradino' (Funzione di Heaviside)?"
+4. **Il RACS**: "Che cos'è il RACS e perché è diverso dalla semplice media dei cluster? Cosa succede a questa formula proprio sulla soglia di percolazione (Pc)?"
 5. **Percolazione in 3D**: "Se usassimo un cubo invece di una griglia piatta, la soglia di percolazione sarebbe più alta o più bassa? Perché?" (Risposta: è più bassa, si percola molto prima).
 
 ---

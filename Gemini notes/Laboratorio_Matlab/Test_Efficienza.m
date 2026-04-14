@@ -1,64 +1,72 @@
 % Test_Efficienza.m
-% Script per profilare strutturalmente la comparazione HK vs Flood-Fill.
-% Disegna due tracciati adatti al report e all'esame orale.
+% Questo script confronta le prestazioni di due algoritmi di cluster finding:
+% 1. CercaCluster (Flood-Fill): approccio ricorsivo standard.
+% 2. HK (Hoshen-Kopelman): approccio ottimizzato basato su Union-Find.
+% L'obiettivo è mostrare come HK sia molto più veloce al crescere della griglia.
 
 clear; clc; close all;
 
-%% 1. Test Lineare: Fissiamo P, Variamo Scala (L)
-p_fisso = 0.55; % Soglia pre-critica bella densa
-L_array = [50, 100, 200, 300, 400, 600]; % Taglie progressive
-tempi_base_L = zeros(1, length(L_array));
-tempi_hk_L = zeros(1, length(L_array));
+%% 1. TEST DI SCALABILITÀ: Probabilità fissa, Taglia griglia (L) variabile
+p_fisso = 0.55; % Usiamo una densità vicina alla soglia per mettere sotto sforzo i codici
+L_array = [50, 100, 200, 300, 400, 600]; % Testiamo griglie da 50x50 fino a 600x600
 
-disp('--- [1/2] Avvio test scalabilita su L (Taglia Reticolo) ---');
+tempi_base_L = zeros(1, length(L_array));
+tempi_hk_L   = zeros(1, length(L_array));
+
+disp('--- [1/2] Test su dimensione griglia (L) in corso ---');
 for i = 1:length(L_array)
     L = L_array(i);
-    M = rand(L) < p_fisso;
-    
+    M = rand(L) < p_fisso; % Generiamo una griglia casuale
+
+    % Testiamo l'algoritmo ricorsivo (Flood-Fill)
     tic; CercaCluster(L, p_fisso, M); tempi_base_L(i) = toc;
+
+    % Testiamo l'algoritmo di Hoshen-Kopelman
     tic; HK(L, p_fisso, M); tempi_hk_L(i) = toc;
-    
-    disp([' -> Griglia ' num2str(L) 'x' num2str(L) ' valutata.']);
+
+    disp([' -> Griglia ' num2str(L) 'x' num2str(L) ' analizzata.']);
 end
 
-%% 2. Test Condizionale: Fissiamo L, Variamo P
-L_fisso = 400; % Matrice costosa quanto basta x stancare il flooding
+%% 2. TEST DI SFORZO: Taglia griglia (L) fissa, Probabilità (p) variabile
+L_fisso = 400; % Griglia abbastanza grande da far sentire la differenza
 p_array = 0.1:0.1:0.9;
-tempi_base_p = zeros(1, length(p_array));
-tempi_hk_p = zeros(1, length(p_array));
 
-disp('--- [2/2] Avvio test di sforzo su p (Densita colore) ---');
+tempi_base_p = zeros(1, length(p_array));
+tempi_hk_p   = zeros(1, length(p_array));
+
+disp('--- [2/2] Test su densità (p) in corso ---');
 for i = 1:length(p_array)
     p = p_array(i);
     M = rand(L_fisso) < p;
-    
+
     tic; CercaCluster(L_fisso, p, M); tempi_base_p(i) = toc;
     tic; HK(L_fisso, p, M); tempi_hk_p(i) = toc;
-    
-    disp([' -> p = ' num2str(p) ' valutata.']);
+
+    disp([' -> Probabilità p = ' num2str(p) ' analizzata.']);
 end
 
-%% Generazione Figure 
-fig1 = figure('Name', 'Analisi Efficienza Computazionale', 'Position', [100 100 1000 450]);
+%% GENERAZIONE DEI GRAFICI DI CONFRONTO
+figure('Name', 'Confronto Efficienza Algoritmica', 'Position', [100 100 1000 450]);
 
-% Riquadro 1 (L scale)
+% Grafico 1: Tempo vs Dimensione griglia
 subplot(1,2,1);
 plot(L_array, tempi_base_L, 'r-o', 'LineWidth', 1.5, 'MarkerFaceColor','r'); hold on;
 plot(L_array, tempi_hk_L, 'b-s', 'LineWidth', 1.5, 'MarkerFaceColor','b');
 grid on;
-title(sprintf('Esecuzione vs Taglia (p_{col} = %0.2f)', p_fisso));
-xlabel('Taglia Reticolo (L)');
-ylabel('Tempo d''Esecuzione (secondi)');
-legend('CercaCluster (Flood)', 'HK (Union-Find)', 'Location', 'NorthWest');
+title(sprintf('Esecuzione vs Taglia ($p_{fisso} = %0.2f$)', p_fisso), 'Interpreter', 'latex');
+xlabel('Taglia Reticolo ($L$)', 'Interpreter', 'latex');
+ylabel('Tempo d''Esecuzione (secondi)', 'Interpreter', 'latex');
+legend({'CercaCluster (Flood)', 'HK (Union-Find)'}, 'Location', 'NorthWest', 'Interpreter', 'latex');
 
-% Riquadro 2 (p scale)
+% Grafico 2: Tempo vs Densità di occupazione
 subplot(1,2,2);
 plot(p_array, tempi_base_p, 'r-o', 'LineWidth', 1.5, 'MarkerFaceColor','r'); hold on;
 plot(p_array, tempi_hk_p, 'b-s', 'LineWidth', 1.5, 'MarkerFaceColor','b');
 grid on;
-title(sprintf('Esecuzione vs Densità (L = %d)', L_fisso));
-xlabel('Probabilità Colorazione (p_{col})');
-ylabel('Tempo d''Esecuzione (secondi)');
-legend('CercaCluster (Flood)', 'HK (Union-Find)', 'Location', 'NorthWest');
+title(sprintf('Esecuzione vs Densit\\`a ($L = %d$)', L_fisso), 'Interpreter', 'latex');
+xlabel('Probabilit\\`a Colorazione ($p_{col}$)', 'Interpreter', 'latex');
+ylabel('Tempo d''Esecuzione (secondi)', 'Interpreter', 'latex');
+legend({'CercaCluster (Flood)', 'HK (Union-Find)'}, 'Location', 'NorthWest', 'Interpreter', 'latex');
 
-disp('Test Efficienza conclusi. Snapshot salvabile!');
+% Salvataggio dell'immagine per la relazione
+disp('Confronti terminati correttamente.');

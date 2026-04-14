@@ -6,10 +6,10 @@
 \usepackage{geometry}
 \geometry{a4paper, margin=2.5cm}
 \usepackage{float}
-\usepackage[hypcap=true]{caption} % Forza i link in alto sopra l'immagine
-\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref} % Deve sempre essere l'ultimo!
+\usepackage[hypcap=true]{caption}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue]{hyperref}
 
-\title{Relazione Finale - Modellazione e Simulazioni Numeriche \\ \large Progetto: Transizione di Fase Termodinamica e Algoritmica di Percolazione}
+\title{Relazione Finale - Modellazione e Simulazioni Numeriche \\ \large Progetto sulla Percolazione in 2D e Algoritmo di Hoshen-Kopelman}
 \author{Martin Trajkovski}
 \date{\today}
 
@@ -17,45 +17,47 @@
 
 \maketitle
 
-\section{Introduzione e Obiettivi Analitici}
-Questa relazione documenta l'analisi formale del modello base di generazione e frammentazione reticolare noto come "Percolazione 2D" su un assetto a matrice quadrata $L \times L$. Il problema fondamentale non consiste puramente nella validazione visiva della connettività, ma nell'estrarre determinazioni statiche, limiti asintotici e grandezze topologiche che convalidano il quadro teorico delle Transizioni di Fase di tipo termodinamico continuo. L'obiettivo operativo ha previsto il distacco dall'inefficiente algoritmo ricorsivo di \textit{Flood-Fill} avvalendosi dell'architettura \textit{Hoshen-Kopelman} (HK), in modo da abilitare simulazioni \textit{Monte-Carlo} dense ed annullare le penalità di esecuzione computazionale in prossimità della fluttuazione critica.
+\section{Introduzione e Obiettivi del Progetto}
+Questa relazione descrive lo studio condotto sul modello della "Percolazione 2D", analizzato su una griglia quadrata di dimensioni $L \times L$. L'obiettivo principale del lavoro non è stato solo quello di osservare visivamente come si formano i cluster di quadratini "accesi", ma di estrarre dei dati statistici significativi che confermino le leggi fisiche delle transizioni di fase.
 
-\section{Ottimizzazione Architetturale: Union-Find e Hoshen-Kopelman}
-Il tracciamento dei cluster standard tramite l'immersione ricorsiva o a pila (l'approccio standard \texttt{CercaCluster.m}) presenta un limite strutturale drammatico: valicando la soglia d'aggregazione $p_c \approx 0.60$, il reticolo decanta rapidamente verso un ammasso reticolare unificato. La memoria strutturata subisce un over-saturation costringendo l'algoritmo visivo ad interrogare a ritroso la matrice un quantitativo esponenziale ed irrazionale di volte.
+In particolare, l'attenzione si è spostata dall'osservazione del singolo reticolo allo studio di grandezze medie calcolate su un gran numero di simulazioni. Per rendere possibile questo studio in tempi ragionevoli, è stato necessario abbandonare l'algoritmo di ricerca classico (\textit{Flood-Fill}), che diventa estremamente lento vicino alla soglia critica, in favore del più efficiente algoritmo di \textit{Hoshen-Kopelman} (HK).
 
-Per superare rigorosamente tale collo di bottiglia, è stata implementata la configurazione \textit{Hoshen-Kopelman (HK)}.
-Il codice impiega operativamente i Disjoint-Set (\textit{Union-Find}): il reticolo in input viene esplorato tramite un un'unica scansione cardinale (\textit{Raster Scan}, unicamente asse verticale decrescente ed orizzontale crescente). La predizione assume inferenza sollevando le congiunture sui vicini pre-calcolati (Nord, ovest). L'intuizione logistica prevede non la riscrittura del reticolo fisico ma l'accorpamento virtuale delle etichette (Label) dinamicamente confliggenti dentro uno smistatore virtuale: The \textit{Parent List}. Questo salto prestazionale recide le interrogazioni spaziali ritardate inglobando la valutazione unicamente alla taglia natia dei gridpoint analizzati ($L^2$), determinando una risolvente $\mathcal{O}(N)$.
+\section{Efficienza Algoritmica: da Flood-Fill a Hoshen-Kopelman}
+Il metodo standard per identificare i cluster (implementato in \texttt{CercaCluster.m}) si basa su una ricerca ricorsiva. Questo approccio funziona bene per griglie vuote, ma quando la probabilità di occupazione $p$ si avvicina al valore critico $p_c \approx 0.59$, i cluster diventano molto grandi e ramificati. In queste condizioni, l'algoritmo ricorsivo satura rapidamente la memoria del calcolatore e richiede tempi di calcolo eccessivi.
+
+Per superare questo limite, ho implementato l'algoritmo di \textit{Hoshen-Kopelman}. A differenza del precedente, questo metodo analizza la griglia con un'unica scansione (come se leggesse un libro, riga per riga), assegnando delle etichette temporanee ai quadratini e gestendo i collegamenti tra di essi tramite una struttura dati chiamata \textit{Union-Find}. In questo modo, il tempo richiesto per analizzare la griglia cresce in modo lineare rispetto al numero totale di pixel ($L^2$), rendendo le simulazioni molto veloci.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.9\textwidth]{../Laboratorio_Matlab/Test_efficienza.png}
-    \caption{Profilazione dei tempi di esecuzione: comparazione computazionale dell'approccio Flood-Fill contro lo schema Union-Find (HK).}
+    \caption{Confronto dei tempi di esecuzione: l'algoritmo Hoshen-Kopelman mantiene prestazioni costanti anche al crescere della complessità del reticolo.}
     \label{fig:efficienza}
 \end{figure}
 
-L'evidenza empirica di profilazione in \hyperref[fig:efficienza]{Figura \ref*{fig:efficienza}} palesa il radicale divario algoritmico. Mentre la variante a pila soffre in scalabilità all'allargarsi dei lati dell'arena ($L$) o all'ostruzionismo dettato dall'intensificarsi del riempimento cromatico ($p_{col}$), l'algoritmo Hoshen-Kopelman assorbe invariato l'aumento della massa critica pre-soglia.
+Come si può osservare nella \hyperref[fig:efficienza]{Figura \ref*{fig:efficienza}}, il divario tra i due metodi è netto: mentre il \textit{Flood-Fill} rallenta drasticamente vicino alla soglia di percolazione, l'approccio HK permette di gestire senza problemi griglie di grandi dimensioni.
 
-\section{Distribuzioni di Connettività, $P_1$ e RACS}
-Forte della stabilità computazionale acquisita in ordine temporale per ogni simulazione asparsa, l'analisi vettoriale è stata displicata in altissima densità ($N=1000$ invocazioni analitiche) esaminando gli assetti nell'intorno nevralgico della criticità topologica. Ogni serie estrapolata ingloba l'intervallo d'errore del campionamento \textit{Standard Error M.C.}, limitando l'errore apparente a una pura deviazione incerta standard normalizzata.
+\section{Analisi dei Risultati: Probabilità, $P_1$ e RACS}
+Grazie alla velocità dell'algoritmo HK, ho potuto condurre una campagna di simulazioni molto densa, effettuando $N=1000$ prove per ogni valore di probabilità $p$. Questo ha permesso di ridurre l'errore statistico e di ottenere curve molto pulite.
 
 \begin{figure}[H]
     \centering
     \includegraphics[width=\textwidth]{../Laboratorio_Matlab/analisi_soglia_racs_1000.png}
-    \caption{Spettro Termodinamico e Soglie: (1) Probabilità di Percolazione Orizzontale/Verticale, (2) Frazione Massica Isolata $P_1$, (3) Media Taglia Cluster Ridotta (RACS).}
+    \caption{Risultati della simulazione: (1) Probabilità di percolazione, (2) Frazione della massa nel cluster gigante $P_1$, (3) Dimensione media dei cluster ridotta (RACS).}
     \label{fig:termodinamica}
 \end{figure}
 
-L'indagine espone tangibilmente i teoremi asintotici di frontiera (Rif. \hyperref[fig:termodinamica]{Figura \ref*{fig:termodinamica}}):
-\begin{itemize}
-    \item \textbf{Morfologia a S della Sigmoide (Pannello 1):} Contrariamente al subitaneo e categorico salto del \textit{Gradino di Heaviside} esigibile teoreticamente per reticoli infiniti, il grafico convalida scientificamente l'esistenza empirica di una morfologia smussata "ad S" che regge lo specchio dei test finitamente delineati al calcolatore. Il rateo di penetrabilità delle sponde del reticolo implode e subisce uno sblocco critico superando prepotentemente il margine in bilico posto a $p_{col} \approx 0.59$.
-    \item \textbf{Comportamento Organico del Parametro d'Ordine ($P_1$) (Pannello 2):} Palesa l'evoluzione endogena interna all'asseganto dominante: oltrepassata la transizione, cessa l'eterogeneità statistica e la varianza geometrica. Il telaio viene fagocitato interamente dal \textit{Spanning Cluster} che cresce non più in maniera aggregativa sparsa ma ramificandosi quasi a formare l'architettura assiale intera dell'ambiente matematico.
-    \item \textbf{Suscettibilità di Transizione RACS (Pannello 3):} La "Radiografia" computazionale prediletta dal modello. Rimuovendo esplicitamente il \textit{Cluster Maggioritario Spanning} dalla funzione (eliminato per decodificare il "rumore" che occulta la transizione), il termine denominatore perde convergenza rispetto al nominatore della massa critica che inizia a deviare esplosivamente originando il fenomeno asintotico noto quale "Vulcano Termodinamico". Tale picco si innesca impercettibilmente a valle del $0.593$, allorché i rimanenti e secondari micro-reticoli lottano disperatamente ingrossandosi prima che l'ulteriore singola molecola accesa finisca per agglutinarli tutti d'un colpo, declassando ed annullando il parametro per l'ingresso nel nuovo equilibrio termodinamico di post-percolazione.
-\end{itemize}
+Dall'analisi dei grafici in \hyperref[fig:termodinamica]{Figura \ref*{fig:termodinamica}} emergono tre punti chiave:
+\begin{enumerate}
+    \item \textbf{La curva a "S" della percolazione:} La probabilità che esista un cammino che attraversa tutto il sistema non passa da 0 a 1 all'improvviso (come farebbe in un sistema infinito), ma segue una curva più morbida. Il punto di massima pendenza si trova intorno a $p \approx 0.593$, che è in ottimo accordo con i valori teorici della letteratura.
+    \item \textbf{Il parametro d'ordine $P_1$:} Questo valore rappresenta la frazione di quadratini che appartengono al cluster più grande. Si nota chiaramente che, superata la soglia critica, questo valore inizia a crescere rapidamente: il "cluster gigante" inizia a fagocitare quasi tutta la massa del sistema.
+    \item \textbf{Il picco del RACS (Il "Vulcano"):} Il RACS misura la dimensione media di tutti i cluster esclusione fatta per quello gigante. Rimuovendo il cluster più grande, riusciamo a vedere chiaramente cosa succede agli altri: proprio sulla soglia di percolazione, i cluster diventano molto grandi prima di unirsi tra loro, creando un picco caratteristico nel grafico.
+\end{enumerate}
 
-\section{Considerazioni Formative in Sede d'Esame}
-\subsection*{4.1 Finite-Size Scaling}
-Nei modelli in cui un fenomeno esplode in maniera macroscopica si valuta sempre la "Lunghezza di Correlazione Geometrica" ($\xi$). Nell'assunto di cui all'osservazione, l'addolcimento sperimentato attorno ai fianchi della Soglia è strettamente ricondubile "all'Errore Fisico della Memoria di Appoggio". Elementi insiti e raggruppamenti di pixel che in uno spazio di iterazione infinito non dovrebbero neppur lambirsi topologicamente, riescono puramente ed erroneamente (spuntando la percolazione casuale anticipata) a trovare gli angoli laterali costretti dei muri del computer stesso in test per via di $L=100$. Queste limitatezze spiegano con enorme eleganza le derive distorte del reticolo asperso.
+\section{Conclusioni e Osservazioni di Studio}
+\subsection*{4.1 Effetti di taglia finita (Finite-Size Scaling)}
+Sebbene la teoria preveda un salto netto (funzione di Heaviside) per la percolazione, nelle mie simulazioni ho usato una griglia di lato $L=100$. Questa dimensione "finita" è responsabile dell'arrotondamento della curva a S. In una griglia reale di un computer, i bordi influenzano il risultato: un sistema infinito non ha bordi, mentre qui i cluster che toccano i lati del riquadro vengono considerati "percolanti" un po' prima del previsto.
 
-\subsection*{4.2 Indipendenza Aleatoria nel Monte Carlo}
-Mentre per i test su catena di \textit{Code Infinita (Birth-Death)} vige il vizio di ereditare tempisticamente le saturazioni limitanti, il set di test di Hoshen testé misurato scansa interamente il rumore e l'errore insidioso dell' \textit{Autocorrelazione Temporale}. Ogni esecuzione randomica che compone le medie a base 1000 per parametro di Densità, impone una tabula rasa in \texttt{Matlab} in totale distacco da memorie di tracciato pregresso, eludendo i fattori di scarto dell'integrale dei tempi e fornendo purezza accademica alle varianze stampate a video tramite Limite Centrale Universale (CLT).
+\subsection*{4.2 Affidabilità dei dati}
+L'utilizzo del metodo Monte Carlo indipendente (rigenerando la griglia da zero per ogni prova) garantisce che non vi sia alcuna correlazione tra un esperimento e l'altro. Avendo utilizzato $1000$ medie per punto, i risultati ottenuti sono statisticamente solidi e l'errore calcolato (tramite la deviazione standard della media) è estremamente contenuto, confermando la bontà del modello implementato in \texttt{Matlab}.
+
 \end{document}
