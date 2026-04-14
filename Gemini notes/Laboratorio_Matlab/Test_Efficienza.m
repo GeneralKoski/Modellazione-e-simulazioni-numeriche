@@ -53,20 +53,20 @@ subplot(1,2,1);
 plot(L_array, tempi_base_L, 'r-o', 'LineWidth', 1.5, 'MarkerFaceColor','r'); hold on;
 plot(L_array, tempi_hk_L, 'b-s', 'LineWidth', 1.5, 'MarkerFaceColor','b');
 grid on;
-title(sprintf('Esecuzione vs Taglia ($p_{fisso} = %0.2f$)', p_fisso), 'Interpreter', 'latex');
-xlabel('Taglia Reticolo ($L$)', 'Interpreter', 'latex');
-ylabel('Tempo d''Esecuzione (secondi)', 'Interpreter', 'latex');
-legend({'CercaCluster (Flood)', 'HK (Union-Find)'}, 'Location', 'NorthWest', 'Interpreter', 'latex');
+title(sprintf('Esecuzione vs Taglia (p_{fisso} = %0.2f)', p_fisso));
+xlabel('Taglia Reticolo (L)');
+ylabel('Tempo d''Esecuzione (secondi)');
+legend({'CercaCluster (Flood)', 'HK (Union-Find)'}, 'Location', 'NorthWest');
 
 % Grafico 2: Tempo vs Densità di occupazione
 subplot(1,2,2);
 plot(p_array, tempi_base_p, 'r-o', 'LineWidth', 1.5, 'MarkerFaceColor','r'); hold on;
 plot(p_array, tempi_hk_p, 'b-s', 'LineWidth', 1.5, 'MarkerFaceColor','b');
 grid on;
-title(sprintf('Esecuzione vs Densit\\`a ($L = %d$)', L_fisso), 'Interpreter', 'latex');
-xlabel('Probabilit\\`a Colorazione ($p_{col}$)', 'Interpreter', 'latex');
-ylabel('Tempo d''Esecuzione (secondi)', 'Interpreter', 'latex');
-legend({'CercaCluster (Flood)', 'HK (Union-Find)'}, 'Location', 'NorthWest', 'Interpreter', 'latex');
+title(sprintf('Esecuzione vs Densità (L = %d)', L_fisso));
+xlabel('Probabilità Colorazione (p_{col})');
+ylabel('Tempo d''Esecuzione (secondi)');
+legend({'CercaCluster (Flood)', 'HK (Union-Find)'}, 'Location', 'NorthWest');
 
 % Salvataggio dell'immagine per la relazione
 disp('Confronti terminati correttamente.');

@@ -89,25 +89,25 @@ subplot(1, 3, 1);
 errorbar(p_color, perc_med, perc_err, 'g-o', 'LineWidth', 1.5, 'MarkerFaceColor','g');
 grid on; hold on;
 plot([0 1], [0.5 0.5], 'r--', 'HandleVisibility', 'off');
-title(sprintf('Transizione di Fase ($L=%d$)', L), 'Interpreter', 'latex');
-xlabel('Densit\\`a Colorazione ($p_{col}$)', 'Interpreter', 'latex');
-ylabel('$P_{perc}$ (Prob. di Percolamento)', 'Interpreter', 'latex');
+title(sprintf('Transizione di Fase (L = %d)', L));
+xlabel('Densità Colorazione (p_{col})');
+ylabel('P_{perc} (Prob. di Percolamento)');
 
 % Pannello 2: Parametro d'ordine P1 (Crescita del cluster gigante)
 subplot(1, 3, 2);
 errorbar(p_color, P1_med, P1_err, 'b-d', 'LineWidth', 1.5, 'MarkerFaceColor', 'b');
 grid on;
-title(sprintf('Rateo Cluster Dominante $P_1$ ($L=%d$)', L), 'Interpreter', 'latex');
-xlabel('Densit\\`a Colorazione ($p_{col}$)', 'Interpreter', 'latex');
-ylabel('$s_{max} / L^2$ (Frazione Occupata)', 'Interpreter', 'latex');
+title(sprintf('Rateo Cluster Dominante P_1 (L = %d)', L));
+xlabel('Densità Colorazione (p_{col})');
+ylabel('s_{max} / L^2 (Frazione Occupata)');
 
 % Pannello 3: RACS (Il picco critico o "vulcano")
 subplot(1, 3, 3);
 errorbar(p_color, racs_med, racs_err, 'm-p', 'LineWidth', 1.5, 'MarkerFaceColor', 'm');
 grid on;
-title(sprintf('Reduced Average Cluster Size ($L=%d$)', L), 'Interpreter', 'latex');
-xlabel('Densit\\`a Colorazione ($p_{col}$)', 'Interpreter', 'latex');
-ylabel('RACS', 'Interpreter', 'latex');
+title(sprintf('Reduced Average Cluster Size (L = %d)', L));
+xlabel('Densità Colorazione (p_{col})');
+ylabel('RACS');
 
 % Salvataggio dell'immagine per la relazione
 disp('Simulazione terminata.');
